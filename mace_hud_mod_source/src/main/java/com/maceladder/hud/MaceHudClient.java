@@ -48,13 +48,11 @@ public class MaceHudClient implements ClientModInitializer {
         KeyMapping.Category category = KeyMapping.Category.register(
                 Identifier.fromNamespaceAndPath("macehud", "abilities"));
 
-        dashKey = KeyMappingHelper.registerKeyMapping(new KeyMapping(
-                "key.macehud.dash", InputConstants.Type.KEYSYM, InputConstants.KEY_Z, category));
-        boomKey = KeyMappingHelper.registerKeyMapping(new KeyMapping(
-                "key.macehud.boom", InputConstants.Type.KEYSYM, InputConstants.KEY_APOSTROPHE, category));
+               dashKey = KeyMappingHelper.registerKeyMapping("key.macehud.dash", InputConstants.KEY_Z, category);
+        boomKey = KeyMappingHelper.registerKeyMapping("key.macehud.boom", InputConstants.KEY_APOSTROPHE, category);
 
         ClientTickEvents.END_CLIENT_TICK.register(mc -> {
-            if (mc.player == null) return;
+                if (mc.player == null) return;
             while (dashKey.consumeClick()) {
                 if (tier(mc.player) >= DASH_TIER && remaining(mc.player, MobEffects.UNLUCK) == 0) {
                     mc.player.connection.sendCommand("trigger mace.dash");
